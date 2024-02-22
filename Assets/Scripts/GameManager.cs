@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
             {
                 if(pieceObject.TryGetComponent<Enemy>(out var enemy))
                 {
-                    Destroy(pieceObject);
+                    enemy.Death();
                 }
             }
         }
