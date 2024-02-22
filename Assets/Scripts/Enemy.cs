@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    bool isDead = false;
+    public bool IsDead { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.isDead)
+        if (this.IsDead)
         {
             return;
         }
@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
 
     public void Death()
     {
-        this.isDead = false;
+        this.IsDead = true;
 
         StartCoroutine(ScaleDown());
     }
