@@ -64,8 +64,8 @@ public class GameManager : MonoBehaviour
                         }
                         break;
                     case State.GameOver:
-                        //タップしたオブジェクトがGameOverだったらシーンをロードし直して最初に戻る
-                        if (pieceObject.name == "GameOver")
+                        //タップしたオブジェクトがRetryButtonだったらシーンをロードし直して最初に戻る
+                        if (pieceObject.name == "RetryButton")
                         {
                             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
                         }
@@ -91,7 +91,11 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        this.spawnController.StopSpawn();
-        this.uiController.VisibleGameOver(true);
+        if(this.state == State.InGame)
+        {
+            this.spawnController.StopSpawn();
+            this.uiController.VisibleGameOver(true);
+            this.state = State.GameOver;
+        }
     }
 }

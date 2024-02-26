@@ -29,6 +29,12 @@ public class Enemy : MonoBehaviour
 
         //前に進ませる
         this.transform.localPosition += Vector3.back * Time.deltaTime;
+
+        if(this.transform.localPosition.z < -2f)
+        {
+            var gameManager = FindObjectOfType<GameManager>();
+            gameManager.GameOver();
+        }
     }
 
     public void Death()
