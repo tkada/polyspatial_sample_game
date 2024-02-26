@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    /// <summary>
+    /// すでに倒されているかどうか
+    /// </summary>
     public bool IsDead { get; private set; }
 
-    // Start is called before the first frame update
-    void Start()
+    SpawnController spawnController;
+
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    public void Initialize(SpawnController spawnController)
     {
-        
+        this.spawnController = spawnController;
     }
 
     // Update is called once per frame
@@ -20,16 +27,22 @@ public class Enemy : MonoBehaviour
             return;
         }
 
+        //前に進ませる
         this.transform.localPosition += Vector3.back * Time.deltaTime;
     }
 
     public void Death()
     {
         this.IsDead = true;
+        this.spawnController.DeathDetected();
 
         StartCoroutine(ScaleDown());
     }
 
+    /// <summary>
+    /// 小さくなるアニメーション
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ScaleDown()
     {
         var startScale = this.transform.localScale;
