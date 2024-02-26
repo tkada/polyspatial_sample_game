@@ -8,16 +8,23 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] SpawnController spawnController;
+    [SerializeField] UIController uiController;
 
-    // Start is called before the first frame update
+    enum State
+    {
+        Title,
+        InGame,
+        GameOver
+    }
+    State state = State.Title;
+
+    int score = 0;
+
     void Start()
     {
         EnhancedTouchSupport.Enable();
-
-        this.spawnController.StartSpawn();
     }
 
-    // Update is called once per frame
     void Update()
     {
         CheckTouch();
@@ -35,16 +42,56 @@ public class GameManager : MonoBehaviour
             var pieceObject = spatialPointerState.targetObject;
             if (pieceObject != null)
             {
-                if (pieceObject.TryGetComponent<Enemy>(out var enemy))
+                switch (this.state)
                 {
-                    if (enemy.IsDead == false)
-                    {
-                        enemy.Death();
-                    }
+                    case State.Title:
+                        //タップしたオブジェクトがStartButtonだったらInGameに進める
+                        if(pieceObject.name == "StartButton")
+                        {
+                            StartGame();
+                        }
+                        break;
+                    case State.InGame:
+                        //タップしたオブジェクトが敵だったらスコアを加算する
+                        if (pieceObject.TryGetComponent<Enemy>(out var enemy))
+                        {
+                            if (enemy.IsDead == false)
+                            {
+                                enemy.Death();
+                                this.score++;
+                                this.uiController.SetScore(this.score);
+                            }
+                        }
+                        break;
+                    case State.GameOver:
+                        //タップしたオブジェクトがGameOverだったらシーンをロードし直して最初に戻る
+                        if (pieceObject.name == "GameOver")
+                        {
+                            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+                        }
+                        break;
+                    default:
+                        Debug.LogWarning("Unknown State:" + this.state);
+                        break;
                 }
             }
         }
     }
 
-    
+    /// <summary>
+    /// ゲーム開始時処理
+    /// </summary>
+    void StartGame()
+    {
+        this.spawnController.StartSpawn();
+        this.uiController.VisibleTitle(false);
+        this.uiController.VisibleScore(true);
+        this.state = State.InGame;
+    }
+
+    public void GameOver()
+    {
+        this.spawnController.StopSpawn();
+        this.uiController.VisibleGameOver(true);
+    }
 }

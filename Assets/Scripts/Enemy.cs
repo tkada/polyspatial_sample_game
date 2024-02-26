@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
             //1フレーム待つ
             yield return null;
 
-            scale -= 0.03f;
+            scale -= 0.02f;
         }
 
         Destroy(this.gameObject);

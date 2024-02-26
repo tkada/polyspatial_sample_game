@@ -658,6 +658,7 @@ MonoBehaviour:
   startButton: {fileID: 2131430469}
   scoreObject: {fileID: 83387451}
   gameOverObject: {fileID: 1275290116}
+  scoreText: {fileID: 1126666152}
 --- !u!223 &994473930
 Canvas:
   m_ObjectHideFlags: 0
@@ -1157,6 +1158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnController: {fileID: 1310474774}
+  uiController: {fileID: 994473929}
 --- !u!4 &1310474773
 Transform:
   m_ObjectHideFlags: 0
