@@ -5,6 +5,9 @@ using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.InputSystem.LowLevel;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
+/// <summary>
+/// ゲーム全体の制御
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     [SerializeField] SpawnController spawnController;
@@ -89,6 +92,9 @@ public class GameManager : MonoBehaviour
         this.state = State.InGame;
     }
 
+    /// <summary>
+    /// ゲームオーバーにする(Enemyから呼ばれる)
+    /// </summary>
     public void GameOver()
     {
         if(this.state == State.InGame)

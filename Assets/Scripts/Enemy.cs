@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 敵の制御
+/// </summary>
 public class Enemy : MonoBehaviour
 {
     /// <summary>
@@ -42,6 +45,7 @@ public class Enemy : MonoBehaviour
         this.IsDead = true;
         this.spawnController.DeathDetected();
 
+        //倒されたアニメーションを再生
         StartCoroutine(ScaleDown());
     }
 

@@ -59,7 +59,7 @@ public class SpawnController : MonoBehaviour
         //SpawnPointの-2.0〜2.0 X座標をランダムに生成させる
         enemy.transform.position = this.spawnPoint.position + Random.Range(-2f, 2f) * Vector3.right;
 
-        //SpawnControllerのインスタンスを渡しておく
+        //SpawnControllerのインスタンスを渡す
         enemy.Initialize(this);
 
         this.elapsedTime = 0f;
